@@ -3,11 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^3.17.0",
+    "babel-plugin-import": "^1.11.0",
+    "css-loader": "^2.1.1",
+    "gh-pages": "^2.0.1",
+    "import-loader": "^1.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.0"
+    "react-scripts": "3.0.0",
+    "requirejs": "^2.3.6",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^6.0.0"
   },
   "scripts": {
+	"predeploy": "npm run build",
+	"deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -27,5 +37,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage": "https://everdin.github.io/iamcode"
 }
