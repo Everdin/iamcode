@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/iamcode/static/css/main.fdaf9892.chunk.css",
+    "main.js": "/iamcode/static/js/main.1d6a2ce1.chunk.js",
+    "main.js.map": "/iamcode/static/js/main.1d6a2ce1.chunk.js.map",
+    "runtime~main.js": "/iamcode/static/js/runtime~main.960b46f2.js",
+    "runtime~main.js.map": "/iamcode/static/js/runtime~main.960b46f2.js.map",
+    "static/css/2.4358233e.chunk.css": "/iamcode/static/css/2.4358233e.chunk.css",
+    "static/js/2.326baf31.chunk.js": "/iamcode/static/js/2.326baf31.chunk.js",
+    "static/js/2.326baf31.chunk.js.map": "/iamcode/static/js/2.326baf31.chunk.js.map",
+    "index.html": "/iamcode/index.html",
+    "precache-manifest.423ed1e9166ea2cf6ff26540fcd861ab.js": "/iamcode/precache-manifest.423ed1e9166ea2cf6ff26540fcd861ab.js",
+    "service-worker.js": "/iamcode/service-worker.js",
+    "static/css/2.4358233e.chunk.css.map": "/iamcode/static/css/2.4358233e.chunk.css.map",
+    "static/css/main.fdaf9892.chunk.css.map": "/iamcode/static/css/main.fdaf9892.chunk.css.map",
+    "static/media/copycode_btn.png": "/iamcode/static/media/copycode_btn.f17b0ab7.png",
+    "static/media/generate_btn.png": "/iamcode/static/media/generate_btn.ddedb352.png",
+    "static/media/logo.svg": "/iamcode/static/media/logo.5d5d9eef.svg",
+    "static/media/main_bg.png": "/iamcode/static/media/main_bg.d9517507.png",
+    "static/media/originimg_bg.png": "/iamcode/static/media/originimg_bg.b6b5f7b6.png",
+    "static/media/test.jpg": "/iamcode/static/media/test.053901e8.jpg",
+    "static/media/tv.png": "/iamcode/static/media/tv.2221a695.png",
+    "static/media/upload_btn.png": "/iamcode/static/media/upload_btn.296aec78.png"
+  }
+}
