@@ -21,7 +21,7 @@ class MainPage extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            ImageSrc:null,
+            // ImageSrc:null,
             code:'',
             pixelData:null,
             renderWidth:0,
@@ -79,12 +79,12 @@ class MainPage extends React.Component{
           if (info.file.status === 'done') 
           {
             getBase64(info.file.originFileObj, imageUrl => this.setState({
-                ImageSrc:imageUrl,
+                imageUrl,
                 loading: false,
               },()=>{
                 const _this = this;
-            img = document.getElementById('mainImg');
-            img.onload = function(){
+                img = document.getElementById('mainImg');
+                img.onload = function(){
                 
                 _this.setState({
                     renderWidth:img.width,
@@ -186,7 +186,7 @@ class MainPage extends React.Component{
                     </input>
                 </span> */}
                 <Upload name='file' action='https://www.mocky.io/v2/5cc8019d300000980a055e76' headers={{authorization: 'authorization-text',}} 
-                onChange={this.handleUpload.bind(this)} showUploadList={false}>
+                onChange={this.handleUpload.bind(this)}>
                     <span style={{width:486, height:78,  cursor:'pointer'}}>
                         <img src={uploadIcon}></img>
                     </span>
@@ -198,7 +198,7 @@ class MainPage extends React.Component{
                     <p style={{width:960, marginLeft:30, color:'black', padding:8,fontSize:20,}}>当前图片：{this.state.CurrentFileName}</p>
                 </div>
                 <div style={{height:580,width:960,display:'flex', justifyContent:'center', alignItems:'center',marginLeft:20}}>
-                    <img id='mainImg'  src={this.state.ImageSrc} style={{maxHeight:560, maxWidth:936}}></img>
+                    <img id='mainImg'  src={this.state.imageUrl} style={{maxHeight:560, maxWidth:936}}></img>
                 </div>
                 
             </div>
