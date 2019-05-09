@@ -12,6 +12,11 @@ import mainBg from '../data/icon/main_bg.png';
 
 var maincanvas, img;
 const contentWidth = 1070;
+function getBase64(img, callback) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+  }
 class MainPage extends React.Component{
     constructor(props){
         super(props);
@@ -45,78 +50,39 @@ class MainPage extends React.Component{
             fontBold:!fontB,
         })
     }
-    /*
-                                                                                                                            
-                                 .--.                                               ...                                 
-                               .+====+.                                           .+===+-                               
-                               +=======+.                                       .+=======-                              
-                               .+========+.                                   .+========+.                              
-                                  +========+.                               .+========+.                                
-                                   .+========+.                           .+========+.                                  
-                                     .+========+.                       .+========+.                                    
-                                       .-========+.                   .+========+.                                      
-                                         .+========+.                -=========-                                        
-            .-+==========================================================================================+-.            
-         .====================================================================================================-         
-       -========================================================================================================+       
-     -============================================================================================================+     
-    +==============================================================================================================+    
-   -=================================================================================================================.  
-  .=============+.                                                                                      .+===========+  
-  -===========+.                                                                                          .+==========. 
- .+===========-                                                                                            -==========+ 
- -============.                                                                                            -=========== 
- -============-                                                                                            -=========== 
- -============-                                                                                            -=========== 
- -============-                                                                                            -==========+ 
- -============-                                                                                            -==========+ 
- -============-                             ..--                           --..                            -==========+ 
- -============-                  ...--+++=======.                         .+======+++--...                 -=========== 
- -============-         ..--+++=================+                         -==================++--..        -==========+ 
- -============-        -=========================.                        +========================-       -==========+ 
- -============-        .+========================-                       -========================+.       -==========+ 
- -============.         -==================+++-..                         ..--++==================-        -==========+ 
- -============.          +=======++--.                                               .--++=======+.        -==========+ 
- -============.          ...                                                                   ...         -==========+ 
- -============.                                                                                            -==========+ 
- -============-                                                                                            -==========+ 
- -============-                                                                                            -==========+ 
- -============-                                                                                            -==========+ 
- -============-                                                                                            -=========== 
- -============-                                             .-                                             -==========+ 
- -============-                                            .==-                                            -=========== 
- -============-                                -==+       -=====.       +=+.                               -=========== 
- -============-                               -=====+-.-+=========+---+=====.                              -==========+ 
- -============-                                 -===========+-============-                                -==========+ 
- -============-                                   .-+====+-.   .-+====+-.                                  -==========+ 
- -============-                                                                                            -=========== 
- -============-                                                                                            -=========== 
- -============.                                                                                            -=========== 
- .+===========-                                                                                            -==========+ 
-  +===========-                                                                                            -==========- 
-  .===========+                                                                                            +==========. 
-   +============-                                                                                        -===========-  
-    +===============================================================================================+===============+   
-     +=============================================================================================================-    
-      -===========================================================================================================-     
-        -=======================================================================================================-       
-          -+=================================================================================================+.         
-             .-+=============================================================++==++=============+---------.             
-                         -===========-                                              +==========+.                       
-                         .+=========-                                               .+=========-                        
-                           -+=====+.                                                  -+=====+.                         
-                                                                                                                        
 
-    */
-    handleUpload=()=>{
-        var file = document.getElementById('mainUploadFile').files[0];
-        var fileSrc = window.URL.createObjectURL(file);
-        this.setState({
-            ImageSrc:fileSrc,
-            CurrentFileName:file.name,
-            code:''
-        },()=>{
-            const _this = this;
+    // handleUpload=()=>{
+    //     var file = document.getElementById('mainUploadFile').files[0];
+    //     var fileSrc = window.URL.createObjectURL(file);
+    //     this.setState({
+    //         ImageSrc:fileSrc,
+    //         CurrentFileName:file.name,
+    //         code:''
+    //     },()=>{
+    //         const _this = this;
+    //         img = document.getElementById('mainImg');
+    //         img.onload = function(){
+                
+    //             _this.setState({
+    //                 renderWidth:img.width,
+    //                 renderHeight:img.height,
+    //             })
+    //         }
+    //     })
+    // }
+
+    handleUpload=(info)=>{
+        if (info.file.status !== 'uploading') 
+        {
+            console.log(info.file, info.fileList);
+          }
+          if (info.file.status === 'done') 
+          {
+            getBase64(info.file.originFileObj, imageUrl => this.setState({
+                ImageSrc:imageUrl,
+                loading: false,
+              },()=>{
+                const _this = this;
             img = document.getElementById('mainImg');
             img.onload = function(){
                 
@@ -125,8 +91,16 @@ class MainPage extends React.Component{
                     renderHeight:img.height,
                 })
             }
-        })
+              }));
+            message.success(`${info.file.name} file uploaded successfully`);
+          } 
+          else if (info.file.status === 'error') {
+            message.error(`${info.file.name} file upload failed.`);
+            
+          }
+
     }
+
     handleFakeUploadOnClick=()=>{
         document.getElementById('mainUploadFile').click();
     }
@@ -198,17 +172,25 @@ class MainPage extends React.Component{
         })
         
     }
+    
+    
     render(){
         return (
             <div style={{backgroundImage: 'url('+mainBg+')',backgroundRepeat:'repeat-y', width:'100%',  display:'flex', flexDirection:'column', alignItems:'center'}}>
-            <div style={{height:120, display:'flex', justifyContent:'center', alignItems:'center'}}>
-                <span style={{width:486, height:78,  cursor:'pointer'}}
+            <div style={{height:160, display:'flex', justifyContent:'center', alignItems:'center'}}>
+                {/* <span style={{width:486, height:78,  cursor:'pointer'}}
                     onClick={this.handleFakeUploadOnClick.bind(this)}>
                     <img src={uploadIcon}></img>
                     <input id='mainUploadFile' type='file'  onChange={this.handleUpload.bind(this)} 
                     style={{width:120, height:48, display:'none'}}>
                     </input>
-                </span>
+                </span> */}
+                <Upload name='file' action='https://www.mocky.io/v2/5cc8019d300000980a055e76' headers={{authorization: 'authorization-text',}} 
+                onChange={this.handleUpload.bind(this)} showUploadList={false}>
+                    <span style={{width:486, height:78,  cursor:'pointer'}}>
+                        <img src={uploadIcon}></img>
+                    </span>
+                </Upload>
             </div>
             <div style={{backgroundImage: 'url('+originImgBg+')',width:contentWidth, height:668, display:'flex', flexDirection:'column', alignItems:'center'}}>
                 <div style={{height:80,width:contentWidth-36,  display:'flex', alignItems:'center', 
@@ -220,7 +202,7 @@ class MainPage extends React.Component{
                 </div>
                 
             </div>
-            <div style={{width:contentWidth, height:120, display:'flex', justifyContent:'space-around', alignItems:'center'}}>
+            <div style={{width:contentWidth, height:160, display:'flex', justifyContent:'space-around', alignItems:'center'}}>
                 <span style={{width:430, height:78,  cursor:'pointer'}} onClick={this.handleGenerateClick.bind(this)}>
                     <img src={generateIcon}></img>
                 </span>
